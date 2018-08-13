@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <atomic>
 #include <deque>
+#include <memory>
 #include <tuple>
 #include <vector>
 #include "chess/position.h"
@@ -15,7 +16,6 @@ enum WDLScore {
   WDL_DRAW = 0,           // Draw
   WDL_CURSED_WIN = 1,     // Win, but draw under 50-move rule
   WDL_WIN = 2,            // Win
-  WDL_SCORE_NONE = -1000
 };
 
 // Possible states after a probing operation
@@ -43,7 +43,7 @@ class SyzygyTablebase {
   // thread safe, there must be no concurrent usage while this method is
   // running. All other thread safe method calls must be strictly ordered with
   // respect to this method.
-  bool init(const std::string& paths);
+  void init(const std::string& paths);
   // Probes WDL tables for the given position to determine a WDLScore.
   // Thread safe.
   // Result is only strictly valid for positions with 0 ply 50 move counter.
