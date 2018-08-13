@@ -1418,10 +1418,11 @@ SyzygyTablebase::SyzygyTablebase() : max_cardinality_(0) {}
 
 SyzygyTablebase::~SyzygyTablebase() = default;
 
-void SyzygyTablebase::init(const std::string& paths) {
+bool SyzygyTablebase::init(const std::string& paths) {
   paths_ = paths;
   impl_.reset(new SyzygyTablebaseImpl(paths_));
   max_cardinality_ = impl_->max_cardinality();
+  return max_cardinality_ > 0;
 }
 
 // For a position where the side to move has a winning capture it is not
